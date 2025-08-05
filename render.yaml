@@ -17,6 +17,3 @@ services:
     buildCommand: "npm install && npm run build"
     startCommand: "npm run preview -- --port 3000"
     workingDir: frontend
-
-# Top-level repo definition
-repo: https://github.com/Papzen85/ai_video_generator.git
