@@ -3,7 +3,6 @@ services:
     name: vidcraft-backend
     env: python
     plan: free
-    repo: https://github.com/papzen85/ai_video_generator_full_project
     branch: main
     buildCommand: "pip install -r requirements.txt"
     startCommand: "uvicorn main:app --host 0.0.0.0 --port 10000"
@@ -16,7 +15,6 @@ services:
     name: vidcraft-frontend
     env: node
     plan: free
-    repo: https://github.com/papzen85/ai_video_generator_full_project
     branch: main
     buildCommand: "npm install && npm run build"
     startCommand: "npm run preview -- --port 3000"
