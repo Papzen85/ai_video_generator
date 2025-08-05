@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: vidcraft-backend
+    env: python
+    plan: free
+    repo: https://github.com/papzen85/ai_video_generator_full_project
+    branch: main
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port 10000"
+    workingDir: backend
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11
+
+  - type: web
+    name: vidcraft-frontend
+    env: node
+    plan: free
+    repo: https://github.com/papzen85/ai_video_generator_full_project
+    branch: main
+    buildCommand: "npm install && npm run build"
+    startCommand: "npm run preview -- --port 3000"
+    workingDir: frontend
