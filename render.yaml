@@ -3,8 +3,8 @@ services:
     name: vidcraft-backend
     env: python
     plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
+    buildCommand: bash -c "pip install -r requirements.txt"
+    startCommand: bash -c "uvicorn main:app --host 0.0.0.0 --port 10000"
     workingDir: backend
     envVars:
       - key: PYTHON_VERSION
@@ -14,6 +14,6 @@ services:
     name: vidcraft-frontend
     env: node
     plan: free
-    buildCommand: npm install && npm run build
-    startCommand: npm run preview -- --port 3000
+    buildCommand: bash -c "npm install && npm run build"
+    startCommand: bash -c "npm run preview -- --port 3000"
     workingDir: frontend
