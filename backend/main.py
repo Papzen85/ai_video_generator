@@ -86,3 +86,17 @@ async def generate_video(
     final_video.write_videofile(output_path, fps=24)
 
     return {"video_url": f"/static/{output_filename}"}
+
+from fastapi import FastAPI
+
+app = FastAPI()
+
+# Your existing routes here...
+
+@app.get("/test-moviepy")
+async def test_moviepy():
+    try:
+        import moviepy.editor
+        return {"moviepy": "installed"}
+    except ImportError:
+        return {"moviepy": "not installed"}
