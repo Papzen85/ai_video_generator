@@ -1,12 +1,12 @@
 services:
   - type: web
-    name: VidCraft
-    env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port 10000
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.8
+    name: vidcraft-backend
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    buildCommand: ""
+    startCommand: "uvicorn backend.main:app --host 0.0.0.0 --port 10000"
+
 
   - type: web
     name: frontend
