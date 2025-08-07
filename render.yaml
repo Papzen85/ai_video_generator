@@ -1,12 +1,12 @@
 services:
   - type: web
-    name: ai-video-backend
+    name: VidCraft
     env: python
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn backend.main:app --host 0.0.0.0 --port 10000
     envVars:
-      - key: PORT
-        value: 10000
+      - key: PYTHON_VERSION
+        value: 3.11.8
 
   - type: web
     name: frontend
