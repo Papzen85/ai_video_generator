@@ -1,19 +1,24 @@
 services:
   - type: web
-    name: vidcraft-backend
+    name: backend
     env: python
-    plan: free
-    workingDir: backend
-    buildCommand: pip install -r requirements.txt
+    envVersion: "3"
+    buildCommand: |
+      cd backend && python -m pip install --upgrade pip
+      cd backend && pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.11
+    autoDeploy: true
+    workingDirectory: backend
+    plan: free
 
   - type: web
-    name: vidcraft-frontend
+    name: frontend
     env: node
+    envVersion: "18"
+    buildCommand: |
+      cd frontend && npm install
+      cd frontend && npm run build
+    startCommand: npm run preview -- --host 0.0.0.0 --port 3000
+    autoDeploy: true
+    workingDirectory: frontend
     plan: free
-    workingDir: frontend
-    buildCommand: npm install && npm run build
-    startCommand: npm run preview -- --port 3000
