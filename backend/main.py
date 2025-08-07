@@ -2,7 +2,6 @@ from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-# Absolute imports from backend.editor
 from backend.editor import (
     VideoFileClip,
     TextClip,
@@ -10,7 +9,7 @@ from backend.editor import (
     concatenate_videoclips,
     AudioFileClip,
     CompositeAudioClip,
-    ImageClip,  # Added missing import
+    ImageClip,
 )
 
 from PIL import Image, ImageDraw, ImageFont
@@ -20,24 +19,20 @@ import os
 
 app = FastAPI()
 
-# Enable CORS for all origins (adjust for your deployment)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # restrict this in production to your frontend domain
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Serve static files (images, output videos, etc.)
 os.makedirs("static", exist_ok=True)
 app.mount("/static", StaticFiles(directory="static"), name="static")
-
 
 @app.get("/")
 async def root():
     return {"message": "Backend is running!"}
-
 
 @app.post("/generate")
 async def generate_video(
@@ -57,7 +52,6 @@ async def generate_video(
         char_img = Image.open(char_img_path).convert("RGB").resize((1280, 720))
 
     for i, line in enumerate(script_lines):
-        # Create frame image using character image or black background
         if char_img:
             img = char_img.copy()
         else:
@@ -73,7 +67,6 @@ async def generate_video(
         img_path = f"static/frame_{uuid.uuid4().hex}.png"
         img.save(img_path)
 
-        # Use provided voice file or silent audio fallback
         if voices and i < len(voices):
             voice_file = voices[i]
             voice_path = f"static/voice_{uuid.uuid4().hex}.mp3"
@@ -89,10 +82,8 @@ async def generate_video(
         clip = clip.set_audio(voice_audio)
         clips.append(clip)
 
-    # Concatenate all clips
     final_video = concatenate_videoclips(clips)
 
-    # Add background music if provided
     if background_music:
         music_path = f"static/music_{uuid.uuid4().hex}.mp3"
         with open(music_path, "wb") as f:
