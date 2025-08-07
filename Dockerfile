@@ -1,35 +1,18 @@
-FROM python:3.13-slim
+# Use Python 3.11 to avoid pyaudioop error with 3.13
+FROM python:3.11-slim
 
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    ffmpeg \
-    libavcodec-dev \
-    libavformat-dev \
-    libavdevice-dev \
-    libavfilter-dev \
-    libavutil-dev \
-    libswscale-dev \
-    libasound2-dev \
-    libpulse-dev \
-    libffi-dev \
-    libssl-dev \
-    liblzma-dev \
-    libbz2-dev \
-    libreadline-dev \
-    libsqlite3-dev \
-    curl \
-    wget \
-    vim \
-    && rm -rf /var/lib/apt/lists/*
+# Install ffmpeg for pydub
+RUN apt-get update && apt-get install -y ffmpeg
 
+# Set working directory
 WORKDIR /app
 
-COPY ./backend /app/backend
-COPY ./backend/requirements.txt /app/requirements.txt
+# Copy everything into container
+COPY . .
 
+# Install dependencies
 RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r /app/requirements.txt
+RUN pip install -r requirements.txt
 
-EXPOSE 10000
-
+# Run the backend on port 10000
 CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "10000"]
