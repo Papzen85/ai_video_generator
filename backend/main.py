@@ -18,7 +18,7 @@ except Exception:
     AudioSegment = None
 
 # Your local imports for enqueueing jobs
-from modules import prompt_to_clip, image_to_motion, talking_avatar, style_transfer
+from backend.modules import prompt_to_clip, image_to_motion, talking_avatar, style_transfer
 from tasks.generate_realistic_video import enqueue_realistic_job
 
 app = FastAPI(title="VidCraft Backend - Realistic Video Scaffold")
