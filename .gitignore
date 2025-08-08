@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.save
+*.log
+env/
+venv/
+.node_modules/
+dist/
+Dockerfile.txt
+requirements.txt.save
