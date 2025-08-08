@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+pydantic
+celery[redis]
+moviepy
+requests
+python-dotenv

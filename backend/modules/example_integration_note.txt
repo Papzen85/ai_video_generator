@@ -1,0 +1,4 @@
+- To integrate AnimateDiff:
+  1) Install torch + x formers + accelerate and AnimateDiff repo.
+  2) Replace image_to_motion.image_to_motion with a pipeline call.
+  3) Ensure model files are on a GPU machine.
