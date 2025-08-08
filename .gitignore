@@ -1,4 +1,18 @@
-node_modules/
-venv/
+# Ignore Python and environment files
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.save
+*.log
 .env
+env/
+venv/
+
+# Ignore Node.js stuff
+node_modules/
+dist/
+
+# Misc
+Dockerfile.txt
+requirements.txt.save
