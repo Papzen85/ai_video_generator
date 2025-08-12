@@ -1,11 +1,19 @@
-# Stub for Stable Video Diffusion integration.
-# Replace `generate_video_from_prompt` with your SVD model endpoint/code.
-import os
+from pathlib import Path
+import subprocess, os
 
-def generate_video_from_prompt(prompt: str, out_path: str) -> str:
-    """Stub - produce a placeholder mp4 file or call SVD.
-    For production connect to your SVD server / API and write file to out_path."""
-    # TODO: call your SVD service here. For now create an empty file marker.
-    with open(out_path, 'wb') as f:
-        f.write(b'')  # replace with real video bytes
+def render_clip_with_animdiff(prompt: str, out_dir: Path, clip_index: int, duration_sec: int = 60, fps: int = 16, style_opts: dict = None):
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / f"clip_{clip_index+1}.mp4"
+    # Example placeholder that calls a local script run_animatediff.py you must provide:
+    cmd = [
+        "python", "run_animatediff.py",
+        "--prompt", prompt,
+        "--out", str(out_path),
+        "--duration", str(duration_sec),
+        "--fps", str(fps)
+    ]
+    try:
+        subprocess.run(cmd, check=True)
+    except Exception:
+        out_path.write_bytes(b"")
     return out_path

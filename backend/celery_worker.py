@@ -1,8 +1,16 @@
+# backend/celery_app.py
 from celery import Celery
 import os
 
-redis_url = os.environ.get("REDIS_URL", "redis://localhost:6379/0")
-celery = Celery("vidcraft_tasks", broker=redis_url, backend=redis_url)
+# Use Render environment variable for Redis
+REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
 
-# autodiscover tasks if needed
-celery.autodiscover_tasks(['tasks'])
+celery = Celery(
+    "backend",
+    broker=REDIS_URL,
+    backend=REDIS_URL
+)
+
+celery.conf.task_routes = {
+    "backend.tasks.*": {"queue": "default"},
+}

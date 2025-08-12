@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://vidcraft-backend-aqhz.onrender.com',  // <-- Your Render
+        target: 'https://vidcraft-backend-4eij.onrender.com', // or your local backend while developing
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }

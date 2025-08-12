@@ -1,7 +1,12 @@
 fastapi
 uvicorn[standard]
+python-multipart
 pydantic
 celery[redis]
+redis
 moviepy
-requests
+pillow
 python-dotenv
+bcrypt
+python-jose
+requests
